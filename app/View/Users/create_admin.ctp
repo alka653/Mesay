@@ -15,7 +15,7 @@
 					<div id="user_name"></div>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('name', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese un Nombre', 'label' => 'Nombre:', array('for' => 'name'), 'maxlength' => '20')) ?>
+					<?= $this->Form->input('name', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese un Nombre', 'label' => 'Nombre:', array('for' => 'name'), 'maxlength' => '20', 'value' => $name)) ?>
 				</div>
 				<div class="form-group">
 					<?= $this->Form->input('password', array('autocomplete' => 'off', 'class' => 'form-control xs-10', 'required' => 'required', 'placeholder' => 'Ingrese una Contraseña', 'label' => 'Contraseña:', array('for' => 'name'), 'maxlength' => '20')) ?>
