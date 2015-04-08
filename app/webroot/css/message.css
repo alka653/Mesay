@@ -1,0 +1,75 @@
+.message {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.message h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.message .message-link {
+  font-weight: bold;
+}
+.message > p,
+.message > ul {
+  margin-bottom: 0;
+}
+.message > p + p {
+  margin-top: 5px;
+}
+.message-dismissable,
+.message-dismissible {
+  padding-right: 35px;
+}
+.message-dismissable .close,
+.message-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.success-alert {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.success-alert hr {
+  border-top-color: #c9e2b3;
+}
+.success-alert .message-link {
+  color: #2b542c;
+}
+.message-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.message-info hr {
+  border-top-color: #a6e1ec;
+}
+.message-info .message-link {
+  color: #245269;
+}
+.errorMessage {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.errorMessage hr {
+  border-top-color: #f7e1b5;
+}
+.errorMessage .message-link {
+  color: #66512c;
+}
+.message-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.message-danger hr {
+  border-top-color: #e4b9c0;
+}
+.message-danger .message-link {
+  color: #843534;
+}

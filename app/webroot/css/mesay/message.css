@@ -1,0 +1,75 @@
+.kumbiaDisplay {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.kumbiaDisplay h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.kumbiaDisplay .kumbiaDisplay-link {
+  font-weight: bold;
+}
+.kumbiaDisplay > p,
+.kumbiaDisplay > ul {
+  margin-bottom: 0;
+}
+.kumbiaDisplay > p + p {
+  margin-top: 5px;
+}
+.kumbiaDisplay-dismissable,
+.kumbiaDisplay-dismissible {
+  padding-right: 35px;
+}
+.kumbiaDisplay-dismissable .close,
+.kumbiaDisplay-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.success-alert {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.success-alert hr {
+  border-top-color: #c9e2b3;
+}
+.success-alert .kumbiaDisplay-link {
+  color: #2b542c;
+}
+.kumbiaDisplay-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.kumbiaDisplay-info hr {
+  border-top-color: #a6e1ec;
+}
+.kumbiaDisplay-info .kumbiaDisplay-link {
+  color: #245269;
+}
+.errorMessage {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.errorMessage hr {
+  border-top-color: #f7e1b5;
+}
+.errorMessage .kumbiaDisplay-link {
+  color: #66512c;
+}
+.kumbiaDisplay-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.kumbiaDisplay-danger hr {
+  border-top-color: #e4b9c0;
+}
+.kumbiaDisplay-danger .kumbiaDisplay-link {
+  color: #843534;
+}

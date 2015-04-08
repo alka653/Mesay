@@ -1,0 +1,26 @@
+#social, .show-sidebar{
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+#dashboard-header{
+	padding: 10px;
+}
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+#test{
+	width: 600px;
+	padding: 30px;
+	display: none;
+	background: #fff;
+	-webkit-border-radius: 5px;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+}
