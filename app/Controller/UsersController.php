@@ -140,6 +140,7 @@
 	    		$username = $this->User->findById($user);
 	    		if($role == 1){
 	    			$this->set('user', $username['User']['username']);
+	    			$this->set('name', $username['User']['name']);
 	    			$view = 'create_admin';
 	    		}
 	    		$this->view = $view;
