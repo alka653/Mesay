@@ -133,21 +133,6 @@
 	    		$this->redirect(array('action' => 'welcome'));
 	    	}
 	    }*/
-	    public function EditUser($user = null, $role = null){
-	    	$this->layout = null;
-	    	$this->autoRender = true;
-	    	if($this->request->isAjax()){
-	    		$username = $this->User->findById($user);
-	    		if($role == 1){
-	    			$this->set('user', $username['User']['username']);
-	    			$this->set('name', $username['User']['name']);
-	    			$view = 'create_admin';
-	    		}
-	    		$this->view = $view;
-	    	}else{
-				$this->redirect(array('action' => 'welcome'));
-	    	}
-	    }
 	    public function status($id = null){
 			$this->layout = null;
 	    	$this->autoRender = true;
@@ -187,10 +172,120 @@
 	    public function CreateAdmin(){
 	    	$this->layout = null;
 	    	$this->autoRender = true;
+	    	$this->set('user', '');
+	    	$this->set('onkeyup', 'BrowseUser()');
+	    	$this->set('button', 'true');
+	    	$this->set('required', 'true');
+	    	$this->set('action', 'SaveAdmin');
+	    	$this->set('name', 'false');
+	    }
+	    public function EditUser($user = null, $role = null){
+	    	$this->layout = null;
+	    	$this->autoRender = true;
+	    	if($this->request->isAjax()){
+	    		$this->loadModel('Tecnico');
+	    		$this->loadModel('Tercero');
+	    		$this->loadModel('Departamento');
+	    		$this->loadModel('Ciudade');
+	    		$username = $this->User->findById($user);
+	    		$this->request->data = $username;
+	    		if($role == '1'){
+	    			$view = 'create_admin';
+	    		}
+	    		if($role == '2'){
+	    			$user_tecni = $this->Tecnico->findById($username['User']['username']);
+	    			$view = 'create_tecni';
+    				$this->set('atecni', $user_tecni['Tecnico']['atecni']);
+	    		}
+	    		if($role == '3'){
+	    			$user_terce = $this->Tercero->findById($username['User']['username']);
+	    			$val_ciud = $this->Ciudade->findById($user_terce['Tercero']['ciudad']);
+	    			$this->set('val_depar', $val_ciud['Ciudade']['cdepar']);
+	    			$this->set('ciud_val', $user_terce['Tercero']['ciudad']);
+	    			$this->set('depar', $this->Departamento->find('list', array('fields' => array('id', 'depar'), 'order' => array('depar ASC'))));
+	    			$this->set('apellidos', $user_terce['Tercero']['apellidos']);
+	    			$this->set('dirterce', $user_terce['Tercero']['dirterce']);
+	    			$this->set('ctaskype', $user_terce['Tercero']['ctaskype']);
+	    			$this->set('email1', $user_terce['Tercero']['email1']);
+	    			$this->set('tel1', $user_terce['Tercero']['tel1']);
+	    			$view = 'create_client';
+	    		}
+	    		$this->set('onkeyup', '');
+	    		$this->set('onkeyup2', '');
+    			$this->set('button', 'false');
+    			$this->set('name', 'true');
+    			$this->set('required', 'false');
+    			$this->set('action', 'UpdateUser');
+    			$this->request->data['User']['password'] = '';
+	    		$this->view = $view;
+	    	}else{
+				$this->redirect(array('action' => 'welcome'));
+	    	}
+	    }
+	    public function UpdateUser($id = null){
+	    	$this->layout = null;
+	    	$this->autoRender = true;
+	    	$this->viewPath = 'Response';
+	    	$this->view = 'response';
+	    	if($this->request->isAjax()){
+	    		$this->loadModel('Tecnico');
+	    		$this->loadModel('Tercero');
+	    		$this->User->id = $id;
+	    		$user = $this->User->findById($id);
+		        if(!$this->User->exists()){
+					$msg = "Usuario no Existente";
+		        }else{
+		        	if($this->User->saveField('name', $this->request->data['User']['name'])){
+		        		if($this->request->data['User']['password'] != ""){
+		        			if($this->User->saveField('password', $this->request->data['User']['password'])){
+		        				$msg = "Exito al Actualizar los Datos";
+		        			}else{
+		        				$msg = "Error al actualizar los Datos";
+		        			}
+		        		}
+		        		if($user['User']['role'] == 2){
+		        			$this->Tecnico->id = $user['User']['username'];
+		        			if(!$this->Tecnico->exists()){
+		        				$mgs = "Tecnico no Existente";
+		        			}else{
+		        				if($this->Tecnico->saveField('ntecni', $this->request->data['User']['name']) && $this->Tecnico->saveField('atecni', $this->request->data['User']['atecni'])){
+
+		        				}else{
+		        					$msg = "Error al Actualizar";
+		        				}
+		        			}
+		        		}
+		        		if($user['User']['role'] == 3){
+		        			$this->Tercero->id = $user['User']['username'];
+		        			if(!$this->Tercero->exists()){
+		        				$mgs = "Tercero no Existente";
+		        			}else{
+		        				if($this->Tercero->saveField('name', $this->request->data['User']['name']) && $this->Tercero->saveField('apellidos', $this->request->data['User']['apellidos']) && $this->Tercero->saveField('dirterce', $this->request->data['User']['dirterce']) && $this->Tercero->saveField('ctaskype', $this->request->data['User']['ctaskype']) && $this->Tercero->saveField('email1', $this->request->data['User']['email1']) && $this->Tercero->saveField('tel1', $this->request->data['User']['tel1']) && $this->Tercero->saveField('ciudad', $this->request->data['ciudad'])){
+
+		        				}else{
+		        					$msg = "Error al Actualizar";
+		        				}
+		        			}
+		        		}
+		        		$msg = "Exito al Actualizar los Datos";
+			        }else{
+			        	$msg = "Error al Actualizar los Datos";
+			        }
+		        }
+	    	}else{
+	    		$msg = "Ah Ocurrido un Error";
+	    	}
+			$this->set(compact('msg'));
 	    }
 	    public function CreateTecni(){
 	    	$this->layout = null;
 	    	$this->autoRender = true;
+	    	$this->set('user', '');
+	    	$this->set('onkeyup', 'BrowseUser()');
+	    	$this->set('button', 'true');
+	    	$this->set('required', 'true');
+	    	$this->set('action', 'SaveTecni');
+	    	$this->set('name', 'false');
 	    }
 	    public function SaveAdmin(){
 	    	$this->layout = null;
@@ -215,12 +310,15 @@
 	    	$this->autoRender = true;
 	    	$this->viewPath = 'Response';
 	    	$this->view = 'response';
+	    	$this->loadModel('Tecnico');
 	    	if($this->request->isAjax()){
 	    		$this->User->create();
+	    		$this->Tecnico->create();
 	    		$this->request->data['User']['role'] = '2';
 	    		$this->request->data['Tecnico']['id'] = $this->request->data['User']['username'];
-	    		$this->request->data['Tecnico']['ntecni'] = $this->request->data['User']['name']." ".$this->request->data['User']['apellidos'];
-	    		if($this->User->save($this->request->data)){
+	    		$this->request->data['Tecnico']['ntecni'] = $this->request->data['User']['name'];
+	    		$this->request->data['Tecnico']['atecni'] = $this->request->data['User']['atecni'];
+	    		if($this->User->save($this->request->data) && $this->Tecnico->save($this->request->data)){
 	    			$msg = "Exito en el Registro";
 	    		}else{
 	    			$msg = "Ha Ocurrido un Error";
@@ -263,6 +361,19 @@
 	    	$this->autoRender = true;
 	    	$this->loadModel('Departamento');
 	    	$this->set('depar', $this->Departamento->find('list', array('fields' => array('id', 'depar'), 'order' => array('depar ASC'))));
+	    	$this->set('onkeyup', 'BrowseUser()');
+	    	$this->set('val_depar','');
+	    	$this->set('onkeyup2', 'BrowseEmail()');
+	    	$this->set('button', 'true');
+	    	$this->set('required', 'true');
+	    	$this->set('action', 'SaveClient');
+	    	$this->set('name', 'false');
+	    	$this->set('apellidos', '');
+			$this->set('dirterce', '');
+			$this->set('ctaskype', '');
+			$this->set('email1', '');
+			$this->set('tel1', '');
+			$this->set('ciud_val', '0');
 	    }
 	    public function GeneratePassword(){
 	    	$this->layout = null;

@@ -5,7 +5,7 @@
 	       		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	       		<h4 class="modal-title" id="myModalLabel">Crear Cliente</h4>
 	   		</div>
-		<?= $this->Form->create('User', array('action' => 'SaveClient', 'class' => 'form-horizontal', 'inputDefaults' => array('label' => false))); ?>
+		<?= $this->Form->create('User', array('action' => $action, 'class' => 'form-horizontal', 'inputDefaults' => array('label' => false))); ?>
 		<?php
 			$disabled = "true";
 		?>
@@ -14,35 +14,35 @@
 					<?= $this->Form->input('name', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese un Nombre', 'label' => 'Nombre:', array('for' => 'name'), 'maxlength' => '30')) ?>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('apellidos', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese los apellidos', 'label' => 'Apellidos:', array('for' => 'apellidos'), 'maxlength' => '30')) ?>
+					<?= $this->Form->input('apellidos', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese los apellidos', 'value' => $apellidos,'label' => 'Apellidos:', array('for' => 'apellidos'), 'maxlength' => '30')) ?>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('dirterce', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese la direccion de residencia', 'label' => 'Direccion:', array('for' => 'dirterce'), 'maxlength' => '20')) ?>
+					<?= $this->Form->input('dirterce', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese la direccion de residencia', 'value' => $dirterce, 'label' => 'Direccion:', array('for' => 'dirterce'), 'maxlength' => '20')) ?>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('ctaskype', array('autocomplete' => 'off', 'class' => 'form-control', 'placeholder' => 'Ingrese el usuario skype', 'label' => 'Skype:', array('for' => 'ctaskype'), 'maxlength' => '20')) ?>
+					<?= $this->Form->input('ctaskype', array('autocomplete' => 'off', 'class' => 'form-control', 'placeholder' => 'Ingrese el usuario skype', 'value' => $ctaskype, 'label' => 'Skype:', array('for' => 'ctaskype'), 'maxlength' => '20')) ?>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('email1', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese el correo electronico', 'onkeyup' => 'BrowseEmail()', 'label' => 'Correo Electronico:', array('for' => 'email1'), 'maxlength' => '40')) ?>
+					<?= $this->Form->input('email1', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese el correo electronico', 'value' => $email1, 'onkeyup' => $onkeyup2, 'label' => 'Correo Electronico:', array('for' => 'email1'), 'maxlength' => '40')) ?>
 					<div id="user_email"></div>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('tel1', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese numero telefonico', 'label' => 'Telefono:', array('for' => 'tel1'), 'maxlength' => '30')) ?>
+					<?= $this->Form->input('tel1', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese numero telefonico', 'value' => $tel1, 'label' => 'Telefono:', array('for' => 'tel1'), 'maxlength' => '30')) ?>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('depar', array('class' => 'form-control', 'required' => 'required',  'label' => 'Departamento (*)', array('for' => 'depar'), 'type' => 'select', 'options' => $depar, 'empty' => 'Selecciona un Departamento')) ?>
+					<?= $this->Form->input('depar', array('class' => 'form-control', 'required' => 'required',  'label' => 'Departamento (*)', array('for' => 'depar'), 'type' => 'select', 'options' => $depar, 'value' => $val_depar, 'empty' => 'Selecciona un Departamento')) ?>
 				</div>
 				<div class="form-group">
-					<div id="ciudad">
+					<div class="ciudad">
 						<?= $this->Form->input('ciudad', array('class' => 'form-control', 'required' => 'required',  'label' => 'Ciudad (*)', array('for' => 'ciudad'), 'type' => 'select', 'empty' => 'Selecciona una Ciudad')) ?>
 					</div>
 				</div>
 	        	<div class="form-group">
-					<?= $this->Form->input('username', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese un Usuario', 'label' => 'Usuario:', 'onkeyup' => 'BrowseUser()', array('for' => 'username'), 'maxlength' => '15')) ?>
+					<?= $this->Form->input('username', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese un Usuario', 'label' => 'Usuario:', 'onkeyup' => $onkeyup, 'disabled' => $name, array('for' => 'username'), 'maxlength' => '15')) ?>
 					<div id="user_name"></div>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('password', array('autocomplete' => 'off', 'class' => 'form-control xs-10', 'required' => 'required', 'placeholder' => 'Ingrese una Contraseña', 'label' => 'Contraseña:', array('for' => 'name'), 'maxlength' => '20')) ?>
+					<?= $this->Form->input('password', array('autocomplete' => 'off', 'class' => 'form-control xs-10', 'required' => $required, 'placeholder' => 'Ingrese una Contraseña', 'label' => 'Contraseña:', array('for' => 'password'), 'maxlength' => '20')) ?>
 					<?= $this->Form->checkbox('check') ?>
 					<?= $this->Form->label('check', 'Generar Contraseña') ?>
 					<?= $this->Form->checkbox('check_2') ?>
@@ -50,17 +50,22 @@
 				</div>
 	      	</div>
 	      	<div class="modal-footer">
-			<?= $this->Form->submit('Guardar', array('id' => 'UserSaveClientForm', 'class' => 'button btn btn-primary btn-label-center', 'div' => false, 'disabled' => $disabled)) ?>
+			<?= $this->Form->submit('Guardar', array('id' => 'User'.$action.'Form', 'class' => 'button btn btn-primary btn-label-center', 'div' => false, 'disabled' => $disabled)) ?>
 	        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	   		</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
+	$('.button').attr('disabled', <?= $button ?>);
+	SelectCiud();
 	$('#UserDepar').change(function(){
-		$('#ciudad').load('<?= Router::url(array("controller" => "Ciudades", "action" => "getByCiudad"), true) ?>'+'/'+$(this).val());
+		SelectCiud();
 	});
-	$("#UserSaveClientForm").submit(function(e){
+	function SelectCiud(){
+		$('.ciudad').load('<?= Router::url(array("controller" => "Ciudades", "action" => "getByCiudad"), true) ?>'+'/'+$('#UserDepar').val()+'/'+<?= $ciud_val ?>);
+	}
+	$("#User<?= $action ?>Form").submit(function(e){
     	var postData = $(this).serializeArray();
     	var formURL = $(this).attr("action");
     	$.ajax({

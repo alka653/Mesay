@@ -5,23 +5,23 @@
 	       		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	       		<h4 class="modal-title" id="myModalLabel">Crear Tecnico</h4>
 	   		</div>
-		<?= $this->Form->create('User', array('action' => 'SaveTecni', 'class' => 'form-horizontal', 'inputDefaults' => array('label' => false))); ?>
+		<?= $this->Form->create('User', array('action' => $action, 'class' => 'form-horizontal', 'inputDefaults' => array('label' => false))); ?>
 		<?php
 			$disabled = "true";
 		?>
 	      	<div class="modal-body form-horizontal">
 	        	<div class="form-group">
-					<?= $this->Form->input('username', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese un Usuario', 'label' => 'Usuario:', 'onkeyup' => 'BrowseUser()', array('for' => 'username'), 'maxlength' => '15')) ?>
+					<?= $this->Form->input('username', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese un Usuario', 'label' => 'Usuario:', 'onkeyup' => $onkeyup, 'disabled' => $name, array('for' => 'username'), 'maxlength' => '15')) ?>
 					<div id="user_name"></div>
 				</div>
 				<div class="form-group">
 					<?= $this->Form->input('name', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese un Nombre', 'label' => 'Nombre:', array('for' => 'name'), 'maxlength' => '20')) ?>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('apellidos', array('autocomplete' => 'off', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ingrese apellidos', 'label' => 'Apellidos:', array('for' => 'apellidos'), 'maxlength' => '20')) ?>
+					<?= $this->Form->input('atecni', array('autocomplete' => 'off', 'class' => 'form-control', 'placeholder' => 'Ingrese apellidos', 'required' => 'required', 'label' => 'Apellidos:', 'value' => $atecni, array('for' => 'apellidos'), 'maxlength' => '20')) ?>
 				</div>
 				<div class="form-group">
-					<?= $this->Form->input('password', array('autocomplete' => 'off', 'class' => 'form-control xs-10', 'required' => 'required', 'placeholder' => 'Ingrese una Contraseña', 'label' => 'Contraseña:', array('for' => 'name'), 'maxlength' => '20')) ?>
+					<?= $this->Form->input('password', array('autocomplete' => 'off', 'class' => 'form-control xs-10', 'required' => $required, 'placeholder' => 'Ingrese una Contraseña', 'label' => 'Contraseña:', array('for' => 'password'), 'maxlength' => '20')) ?>
 					<?= $this->Form->checkbox('check') ?>
 					<?= $this->Form->label('check', 'Generar Contraseña') ?>
 					<?= $this->Form->checkbox('check_2') ?>
@@ -29,14 +29,15 @@
 				</div>
 	      	</div>
 	      	<div class="modal-footer">
-			<?= $this->Form->submit('Guardar', array('id' => 'UserSavTecniForm', 'class' => 'button btn btn-primary btn-label-center', 'div' => false, 'disabled' => $disabled)) ?>
+			<?= $this->Form->submit('Guardar', array('id' => 'User'.$action.'Form', 'class' => 'button btn btn-primary btn-label-center', 'div' => false, 'disabled' => $disabled)) ?>
 	        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	   		</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-	$("#UserSaveTecniForm").submit(function(e){
+	$('.button').attr('disabled', <?= $button ?>);
+	$("#User<?= $action ?>Form").submit(function(e){
     	var postData = $(this).serializeArray();
     	var formURL = $(this).attr("action");
     	$.ajax({

@@ -1,1 +1,1 @@
-<?= $this->Form->input('ciudad', array('required' => 'required', 'class' => 'form-control xs-10', 'label' => 'Ciudad (*)', array('for' => 'ciudad'), 'type' => 'select', 'options' => $ciudad, 'empty' => 'Selecciona una Ciudad')) ?>
+<?= $this->Form->input('ciudad', array('required' => 'required', 'class' => 'form-control xs-10', 'label' => 'Ciudad (*)', array('for' => 'ciudad'), 'type' => 'select', 'options' => $ciudad, 'value' => $value, 'empty' => 'Selecciona una Ciudad')) ?>

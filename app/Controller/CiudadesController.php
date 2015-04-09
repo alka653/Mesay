@@ -6,10 +6,11 @@
 	        parent::beforeFilter();
 	        $this->Auth->allow('getByCiudad'); 
 	    }
-		public function getByCiudad($ciudad){
+		public function getByCiudad($ciudad = null, $value = null){
 			$this->layout = null;
 			$this->autoRender = true;
 			$this->set('ciudad', $this->Ciudade->find('list', array('fields' => array('id', 'name'), 'order' => array('name ASC'), 'conditions' => array('cdepar' => $ciudad))));
+	    	$this->set(compact('value'));
 	    }
 	    public function ShowCity(){
 	    	$this->loadModel('Departamento');
