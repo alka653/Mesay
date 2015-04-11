@@ -1,8 +1,15 @@
 <?php
 	class CiudadesController extends AppController{
 		public $name = 'Ciudades'; 
-		public $helpers = array('Js');
-		 public function beforeFilter(){
+		public $components = array('RequestHandler', 'Session');
+		public $helpers = array('Html', 'Js', 'Form', 'Time');
+		public $paginate = array(
+			'limit' => 3,
+			'order' => array(
+				'Ciudade.id' => 'asc'
+			)
+		); 
+		public function beforeFilter(){
 	        parent::beforeFilter();
 	        $this->Auth->allow('getByCiudad'); 
 	    }
@@ -14,10 +21,16 @@
 	    }
 	    public function ShowCity(){
 	    	$this->loadModel('Departamento');
-	    	$ciudades = $this->Ciudade->find('all');
 	    	$this->set('pageTitle','Lista de Ciudades');
-	    	$this->set(compact('ciudades'));
 	    	$this->set('depar', $this->Departamento->find('list', array('fields' => array('id', 'depar'), 'order' => array('depar ASC'))));
+	    }
+	    public function ViewCity(){
+	    	$this->layout = null;
+	    	$this->autoRender = true;
+	    	$this->Ciudade->recursive = 0;
+	    	$this->paginate['Ciudade']['limit'] = 5;
+	    	$this->paginate['Ciudade']['order'] = array('Ciudade.name' => 'ASC');
+	    	$this->set('ciudades', $this->paginate());
 	    }
 	    public function AddCity(){
 	    	$this->layout = null;

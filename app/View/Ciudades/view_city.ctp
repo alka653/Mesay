@@ -1,29 +1,29 @@
 <?php
 	$this->Paginator->options(array(
-		'update' => '#Content-ticasos'
+		'update' => '#Content-city'
 	));
 ?>
-<div id="Content-ticasos">
+<div id="Content-city">
 	<table class="table table-bordered table-hover" id="table">
 		<thead>
 			<tr>
 				<th><?= $this->Paginator->sort('Id') ?></th>
 				<th><?= $this->Paginator->sort('Nombre') ?></th>
-				<th><?= $this->Paginator->sort('Prefijo') ?></th>
+				<th><?= $this->Paginator->sort('Departamento') ?></th>
 				<th><?= $this->Paginator->sort('Acción') ?></th>
 			</tr>
 		</thead>
 		<tbody id="department">
 			<?php
-				foreach($ticasos AS $ticaso){
+				foreach($ciudades AS $ciudad){
 			?>
-				<tr id="<?= $ticaso['Ticaso']['id'] ?>">
-					<td><?= $ticaso['Ticaso']['id'] ?></td>
-					<td class="<?= $ticaso['Ticaso']['id'] ?>-1"><?= $ticaso['Ticaso']['nticaso'] ?></td>
-					<td class="<?= $ticaso['Ticaso']['id'] ?>-2"><?= $ticaso['Ticaso']['prefijo'] ?></td>
+				<tr id="<?= $ciudad['Ciudade']['id'] ?>">
+					<td><?= $ciudad['Ciudade']['id'] ?></td>
+					<td class="<?= $ciudad['Ciudade']['id'] ?>-1"><?= $ciudad['Ciudade']['name'] ?></td>
+					<td class="<?= $ciudad['Ciudade']['id'] ?>-2"><?= $ciudad['Departamento']['depar'] ?></td>
 					<td>
-						<?= $this->Html->link("<i class='fa fa-trash'></i>", array('controller' => 'Ticasos', 'action' => "DeleteTicase", $ticaso['Ticaso']['id']), array("escape" => false, 'id' => $ticaso['Ticaso']['id'], 'class' => 'Delete')) ?>
-						<?= $this->Html->link("<i class='fa fa-edit'></i>", '#', array("escape" => false, 'id' => $ticaso['Ticaso']['id'], 'name' => $ticaso['Ticaso']['nticaso'], 'prefijo' => $ticaso['Ticaso']['prefijo'], 'class' => 'Edit')) ?>
+						<?= $this->Html->link("<i class='fa fa-trash'></i>", array('controller' => 'Ciudades', 'action' => "DeleteCity", $ciudad['Ciudade']['id']), array("escape" => false, 'id' => $ciudad['Ciudade']['id'], 'class' => 'Delete')) ?>
+						<?= $this->Html->link("<i class='fa fa-edit'></i>", '#', array("escape" => false, 'id' => $ciudad['Ciudade']['id'], 'city' => $ciudad['Ciudade']['name'], 'cdepar' => $ciudad['Ciudade']['cdepar'], 'class' => 'Edit '.$ciudad['Ciudade']['cdepar'])) ?>
 					</td>
 				</tr>
 			<?php
@@ -43,11 +43,11 @@
 <script type="text/javascript">
 	$('.Edit').click(function(e){
 		var id = $(this).attr('id');
-		var name = $(this).attr('name');
-		var prefijo = $(this).attr('prefijo');
-		$('#TicasoId').val(id);
-		$('#TicasoNticaso').val(name);
-		$('#TicasoPrefijo').val(prefijo);
+		var city = $(this).attr('city');
+		var cdepar = $(this).attr('cdepar');
+		$('#CiudadeId').val(id);
+		$('#CiudadeName').val(city);
+		$('#CiudadeCdepar').val(cdepar);
 		e.preventDefault();
 	});
 	$('.Delete').click(function(e){
@@ -58,10 +58,10 @@
 			type: "GET",
 			success:function(response){
 				if(response == 0){
-					toastr.warning('Elimine las relaciones del Caso');
+					toastr.warning('Elimine las relaciones de la Ciudad');
 				}else{
 					toastr.success(response);
-					ticaso();
+					cities();
 				}
 			},
 			error: function(response){

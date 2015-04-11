@@ -1,14 +1,28 @@
 <?php
 	class DepartamentosController extends AppController{
-		public $name = 'Departamentos'; 
+		public $name = 'Departamentos';
+		public $components = array('RequestHandler', 'Session');
+		public $helpers = array('Html', 'Js', 'Form', 'Time');
+		public $paginate = array(
+			'limit' => 3,
+			'order' => array(
+				'Departamento.id' => 'asc'
+			)
+		); 
 	    public function beforeFilter(){
 	        parent::beforeFilter();
 	        $this->Auth->allow(''); 
 	    }
 	    public function ShowDepartment(){
-	    	$departamentos = $this->Departamento->find('all');
 	    	$this->set('pageTitle','Lista de Departamentos');
-	    	$this->set(compact('departamentos'));
+	    }
+	    public function ViewDepartment(){
+	    	$this->layout = null;
+	    	$this->autoRender = true;
+	    	$this->Departamento->recursive = 0;
+	    	$this->paginate['Departamento']['limit'] = 5;
+	    	$this->paginate['Departamento']['order'] = array('Departamento.depar' => 'ASC');
+	    	$this->set('departamentos', $this->paginate());
 	    }
 	    public function AddDepartment(){
 	    	$this->layout = null;

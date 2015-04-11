@@ -17,89 +17,33 @@
 				<?= $this->Form->submit('Agregar Ciudad', array('id' => 'button CiudadeAddCityForm', 'class' => 'button btn btn-primary btn-label-center', 'div' => array('class' => 'form-group text-center'))) ?>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12">
-				<table class="table table-bordered table-hover" id="table">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Nombre</th>
-							<th>Departamento</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody id="department">
-						<?php
-							foreach($ciudades AS $ciudad){
-						?>
-							<tr id="<?= $ciudad['Ciudade']['id'] ?>">
-								<td><?= $ciudad['Ciudade']['id'] ?></td>
-								<td class="<?= $ciudad['Ciudade']['id'] ?>-1"><?= $ciudad['Ciudade']['name'] ?></td>
-								<td class="<?= $ciudad['Ciudade']['id'] ?>-2"><?= $ciudad['Departamento']['depar'] ?></td>
-								<td>
-									<?= $this->Html->link("<i class='fa fa-trash'></i>", array('controller' => 'Ciudades', 'action' => "DeleteCity", $ciudad['Ciudade']['id']), array("escape" => false, 'id' => $ciudad['Ciudade']['id'], 'class' => 'Delete')) ?>
-									<?= $this->Html->link("<i class='fa fa-edit'></i>", '#', array("escape" => false, 'id' => $ciudad['Ciudade']['id'], 'city' => $ciudad['Ciudade']['name'], 'cdepar' => $ciudad['Ciudade']['cdepar'], 'class' => 'Edit '.$ciudad['Ciudade']['cdepar'])) ?>
-								</td>
-							</tr>
-						<?php
-							}
-						?>
-					</tbody>
-				</table>
+				<div id="city"></div>
 			</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#CiudadeId').hide();
-		$('.Edit').click(function(e){
-			var id = $(this).attr('id');
-			var city = $(this).attr('city');
-			var cdepar = $(this).attr('cdepar');
-			$('#CiudadeId').val(id);
-			$('#CiudadeName').val(city);
-			$('#CiudadeCdepar').val(cdepar);
-			e.preventDefault();
-		});
-		$("#CiudadeAddCityForm").submit(function(e){
-	    	var postData = $(this).serializeArray();
-	    	var formURL = $(this).attr("action");
-	    	$.ajax({
-	        	url : formURL,
-	        	type: "POST",
-	        	data : postData,
-	        	success:function(response){
-	            	toastr.success(response);
-	            	location.reload();
-	        	},
-	        	error: function(response){
-	            	toastr.warning(response); 
-	        	}
-	    	});
-			e.preventDefault();
-			return false;
-		});
-		$('.Delete').click(function(e){
-			var target = $(this).attr("href");
-			var id = $(this).attr("id");
-			$.ajax({
-				url: target,
-				type: "GET",
-				success:function(response){
-					if(response == 0){
-						toastr.warning('Elimine las relaciones de la Ciudad');
-					}else{
-						toastr.success(response);
-						$('#'+id).hide();
-					}
-				},
-				error: function(response){
-	            	toastr.warning('Error al Eliminar'); 
-	        	}
-			});
-			$('#DepartamentoId').val('');
-			$('#DepartamentoCdepar').val('');
-			$('#DepartamentoName').val('');
-			e.preventDefault();
-		});
+	cities();
+	$('#CiudadeId').hide();
+	function cities(){
+        $('#city').load('<?= Router::url(array("controller" => "Ciudades", "action" => "ViewCity"), true) ?>');
+    }
+	$("#CiudadeAddCityForm").submit(function(e){
+    	var postData = $(this).serializeArray();
+    	var formURL = $(this).attr("action");
+    	$.ajax({
+        	url : formURL,
+        	type: "POST",
+        	data : postData,
+        	success:function(response){
+            	toastr.success(response);
+            	cities();
+        	},
+        	error: function(response){
+            	toastr.warning(response); 
+        	}
+    	});
+		e.preventDefault();
+		return false;
 	});
 </script>

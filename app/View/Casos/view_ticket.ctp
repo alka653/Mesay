@@ -22,12 +22,21 @@
 					<tbody>
 						<?php 
 							foreach($casos AS $caso){
+								if($caso['Caso']['nivel'] == 1){
+									$span = "label-danger";
+								}
+								if($caso['Caso']['nivel'] == 2){
+									$span = "label-warning";
+								}
+								if($caso['Caso']['nivel'] == 3){
+									$span = "label-info";
+								}
 						?>
 						<tr>
 							<td><?= $caso['Caso']['idcaso'] ?></td>
 							<td><?= $caso['Caso']['titulo'] ?></td>
 							<td><?= $caso['Caso']['fhrecibo'] ?></td>
-							<td><?= $caso['Level']['name_level'] ?></td>
+							<td><span class="label <?= $span ?>"><?= $caso['Level']['name_level'] ?></span></td>
 							<td><?= $caso['State']['name_state'] ?></td>
 							<td><?= $caso['Tecnico']['ntecni'] ?></td>
 							<td></td>
