@@ -7,6 +7,10 @@ class User extends AppModel {
     		'className' => 'Role',
     		'foreignKey' => 'role',
     	),
+    	'State' => array(
+    		'className' => 'State',
+    		'foreignKey' => 'status',
+    	),
     ); 
 	public $validate = array(
         'username' => array(

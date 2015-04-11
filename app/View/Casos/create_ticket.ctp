@@ -42,7 +42,7 @@
 			<h4 class="text-center">Información del Problema</h4>
 			<div class="form-group">
 				<?= $this->Form->input('cticaso', array('class' => 'form-control', 'required' => 'required', 'label' => 'Tipo de Caso', 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-6'), array('class' => 'col-sm-2 control-label'), 'type' => 'select', 'options' => $cticaso, 'empty' => 'Selecciona el Tipo de Caso')) ?>
-				<?= $this->Form->input('nivel', array('class' => 'form-control', 'required' => 'required', 'label' => 'Nivel del Caso', 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-6'), array('class' => 'col-sm-2 control-label'), 'type' => 'select', 'options' => array('1' => 'Alto', '2' => 'Medio', '3' => 'Bajo'), 'empty' => 'Selecciona un Nivel')) ?>
+				<?= $this->Form->input('nivel', array('required' => 'required', 'class' => 'form-control', 'required' => 'required', 'label' => 'Nivel del Caso', 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-6'), array('class' => 'col-sm-2 control-label'), 'type' => 'select', 'options' => $level, 'empty' => 'Selecciona un Nivel')) ?>
 			</div>
 			<div class="form-group">
 				<?= $this->Form->input('titulo', array('maxlength' => '200', 'required' => 'required', 'class' => 'form-control','placeholder' => 'Digite un Titulo del Problema', 'label' => 'Titulo', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-sm-12'))) ?>

@@ -1,15 +1,28 @@
 <?php
 	class TicasosController extends AppController{
 		public $name = 'Ticasos'; 
-		public $helpers = array('Js');
-		 public function beforeFilter(){
+		public $components = array('RequestHandler', 'Session');
+		public $helpers = array('Html', 'Js', 'Form', 'Time');
+		public $paginate = array(
+			'limit' => 3,
+			'order' => array(
+				'Ticaso.id' => 'asc'
+			)
+		);
+		public function beforeFilter(){
 	        parent::beforeFilter();
 	        $this->Auth->allow(''); 
 	    }
 	    public function ShowCase(){
-	    	$ticasos = $this->Ticaso->find('all');
 	    	$this->set('pageTitle','Tipo de Casos');
-	    	$this->set(compact('ticasos'));
+	    }
+	    public function ViewCase(){
+	    	$this->layout = null;
+	    	$this->autoRender = true;
+	    	$this->Ticaso->recursive = 0;
+	    	$this->paginate['Ticaso']['limit'] = 5;
+	    	$this->paginate['Ticaso']['order'] = array('Ticaso.id' => 'ASC');
+	    	$this->set('ticasos', $this->paginate());
 	    }
 	    public function AddTicaso(){
 	    	$this->layout = null;

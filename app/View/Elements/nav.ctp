@@ -1,10 +1,10 @@
 <header class="navbar">
   <div class="container-fluid expanded-panel">
     <div class="row">
-      <div id="logo" class="col-xs-12 col-sm-2">
+      <div id="logo" class="col-xs-6 col-sm-2">
         <?= $this->Html->link('MESAY', array('controller' => 'users', 'action' => 'welcome')) ?>
       </div>
-      <div id="top-panel" class="col-xs-12 col-sm-10">
+      <div id="top-panel" class="col-xs-6 col-sm-10">
         <div class="row">
           <div class="col-xs-8 col-sm-4">
           </div>

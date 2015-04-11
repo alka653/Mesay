@@ -1,7 +1,14 @@
 <?php
 	class UsersController extends AppController{
 		public $name = 'Users'; 
-		public $helpers = array('Js');
+		public $components = array('RequestHandler', 'Session');
+		public $helpers = array('Html', 'Js', 'Form', 'Time');
+		public $paginate = array(
+			'limit' => 3,
+			'order' => array(
+				'User.id' => 'asc'
+			)
+		);
 	    public function beforeFilter(){
 	        parent::beforeFilter();
 	        $this->Auth->allow('login', 'register', 'confirm'); 
@@ -111,8 +118,10 @@
 	    public function show(){
 	    	$this->layout = null;
 	    	$this->autoRender = true;
-	    	$users = $this->User->find('all');
-	    	$this->set(compact('users'));
+	    	$this->User->recursive = 0;
+	    	$this->paginate['User']['limit'] = 5;
+	    	$this->paginate['User']['order'] = array('User.id' => 'ASC');
+	    	$this->set('users', $this->paginate());
 	    }
 	    public function add(){
 	    	$roles = $this->User->Role->find('list', array('fields' => array('id', 'name_role')));
@@ -281,6 +290,7 @@
 	    	$this->layout = null;
 	    	$this->autoRender = true;
 	    	$this->set('user', '');
+	    	$this->set('atecni', '');
 	    	$this->set('onkeyup', 'BrowseUser()');
 	    	$this->set('button', 'true');
 	    	$this->set('required', 'true');

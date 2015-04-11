@@ -10,7 +10,7 @@
 			</a>
 			<ul class="dropdown-menu">
 				<li><?= $this->Html->link('Crear Ticket', array('controller' => 'casos', 'action' => 'CreateTicket'), array('escape' => false)) ?></li>
-				<li><a class="ajax-link" href="ajax/charts_flot.html">Ver Tickets</a></li>
+				<li><?= $this->Html->link('Ver Tickets', array('controller' => 'casos', 'action' => 'ViewTicket'), array('escape' => false)) ?></li>
 			</ul>
 		</li>
 		<?= $this->element($user['Role']['name_role']) ?>

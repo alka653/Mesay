@@ -1,19 +1,29 @@
 <?php
 	class CasosController extends AppController{
 		public $name = 'Casos'; 
-		public $helpers = array('Js');
-		 public function beforeFilter(){
+		public $components = array('RequestHandler', 'Session');
+		public $helpers = array('Html', 'Js', 'Form', 'Time');
+		public $paginate = array(
+			'limit' => 3,
+			'order' => array(
+				'Caso.idcaso' => 'asc'
+			)
+		);
+		public function beforeFilter(){
 	        parent::beforeFilter();
 	        $this->Auth->allow(''); 
 	    }
 	    public function CreateTicket(){
 	    	$this->loadModel('Departamento');
 	    	$this->loadModel('Ticaso');
+	    	$this->loadModel('Level');
 	    	$this->set('depar', $this->Departamento->find('list', array('fields' => array('id', 'depar'), 'order' => array('depar ASC'))));
+	    	$this->set('level', $this->Level->find('list', array('fields' => array('id', 'name_level'), 'order' => array('id ASC'))));
 	    	$this->set('cticaso', $this->Ticaso->find('list', array('fields' => array('id', 'nticaso'), 'order' => array('nticaso ASC'))));
 			$this->set('pageTitle','Crear Ticket');
 	    }
 	    public function NewTicket(){
+	    	$this->loadModel('Tecnico');
 	    	$this->loadModel('Caso');
 	    	$this->loadModel('Casos_deta');
 	    	$this->loadModel('User');
@@ -25,6 +35,7 @@
 	    		$random_int = mt_rand();
 				$password .= $charset[$random_int % strlen($charset)];
 	    	}
+	    	$Ramdon_tecni = $this->Tecnico->find('all', array('order' => array('RAND()'), 'conditions' => array('estado' => '1'), 'limit' => 1));
 	    	$ms = $this->Caso->find('first', array('fields' => array('MAX(idcaso) as max')));
 	    	$max = substr($ms[0]['max'], 7)+1;
 	    	if(strlen($max) == 1){
@@ -64,6 +75,10 @@
 	    		$this->request->data['Caso']['estado'] = '1';
 	    		$this->request->data['Caso']['fhrecibo'] = date('Y-m-d');
 	    		$this->request->data['Caso']['finalizado'] = '0';
+	    		foreach($Ramdon_tecni AS $tecni){
+					$this->request->data['Caso']['ctecni'] = $tecni['Tecnico']['id'];
+					$this->request->data['Casos_deta']['ctecni'] = $tecni['Tecnico']['id'];
+				}
 	    		$this->request->data['Casos_deta']['idcaso'] = $idcaso;
 	    		$this->request->data['Casos_deta']['itcaso'] = '1';
 	    		$this->request->data['Casos_deta']['detalle'] = 'Creacion del Ticket para el Ususario '.$this->request->data['Caso']['citerce'];
@@ -74,8 +89,20 @@
 	    		}else{
 					$this->Session->setFlash(__('Error al enviar los datos.'), 'default', array('class' => 'alert alert-danger alert-dismissible'));
 	    		}
-				$this->redirect(array('controller' => 'casos', 'action' => 'createticket'));
+				$this->redirect(array('controller' => 'casos', 'action' => 'CreateTicket'));
 	    	}
+	    }
+	    public function ViewTicket(){
+	    	$this->Caso->recursive = 0;
+	    	$this->paginate['Caso']['limit'] = 5;
+	    	if(AuthComponent::user('role') == 3){
+	    		$this->paginate['Caso']['conditions'] = array('citerce' => AuthComponent::user('username'));	    		
+	    	}
+	    	if(AuthComponent::user('role') == 2){
+	    		$this->paginate['Caso']['conditions'] = array('ctecni' => AuthComponent::user('username'));	    		
+	    	}
+	    	$this->paginate['Caso']['order'] = array('Caso.idcaso' => 'ASC');
+	    	$this->set('casos', $this->paginate());
 	    }
 	}
 ?>
