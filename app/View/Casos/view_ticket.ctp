@@ -16,7 +16,6 @@
 							<th><?= $this->Paginator->sort('Nivel') ?></th>
 							<th><?= $this->Paginator->sort('Estado') ?></th>
 							<th><?= $this->Paginator->sort('Tecnico') ?></th>
-							<th><?= $this->Paginator->sort('Acción') ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -31,15 +30,23 @@
 								if($caso['Caso']['nivel'] == 3){
 									$span = "label-info";
 								}
+								if($caso['Caso']['estado'] == 1){
+									$span2 = "label-success";
+								}
+								if($caso['Caso']['estado'] == 2){
+									$span2 = "label-danger";
+								}
+								if($caso['Caso']['estado'] == 3){
+									$span2 = "label-default";
+								}
 						?>
 						<tr>
-							<td><?= $caso['Caso']['idcaso'] ?></td>
+							<td><?= $this->Html->link($caso['Caso']['idcaso'], array('controller' => 'casos', 'action' => 'ShowTicket', 'id' => $caso['Caso']['idcaso'])) ?></td>
 							<td><?= $caso['Caso']['titulo'] ?></td>
 							<td><?= $caso['Caso']['fhrecibo'] ?></td>
 							<td><span class="label <?= $span ?>"><?= $caso['Level']['name_level'] ?></span></td>
-							<td><?= $caso['State']['name_state'] ?></td>
+							<td><span class="label <?= $span2 ?>"><?= $caso['State']['name_state'] ?></span></td>
 							<td><?= $caso['Tecnico']['ntecni'] ?></td>
-							<td></td>
 						</tr>
 						<?php
 							}

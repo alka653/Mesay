@@ -13,11 +13,12 @@
 	        parent::beforeFilter();
 	        $this->Auth->allow(''); 
 	    }
+	    public function ShowTicket($id = null){
+
+	    }
 	    public function CreateTicket(){
-	    	$this->loadModel('Departamento');
 	    	$this->loadModel('Ticaso');
 	    	$this->loadModel('Level');
-	    	$this->set('depar', $this->Departamento->find('list', array('fields' => array('id', 'depar'), 'order' => array('depar ASC'))));
 	    	$this->set('level', $this->Level->find('list', array('fields' => array('id', 'name_level'), 'order' => array('id ASC'))));
 	    	$this->set('cticaso', $this->Ticaso->find('list', array('fields' => array('id', 'nticaso'), 'order' => array('nticaso ASC'))));
 			$this->set('pageTitle','Crear Ticket');
@@ -57,17 +58,19 @@
 	    		}else{
 	    			$this->User->create();
 	    			$this->Tercero->create();
-	    			$this->request->data['User']['username'] = $this->request->data['Caso']['citerce'];
-		    		$this->request->data['User']['name'] = $this->request->data['Caso']['name'];
+	    			$this->request->data['User']['username'] = $this->request->data['citerce'];
+		    		$this->request->data['User']['name'] = $this->request->data['name'];
 		    		$this->request->data['User']['password'] = $password;
-		    		$this->request->data['Tercero']['citerce'] = $this->request->data['Caso']['citerce'];
-		    		$this->request->data['Tercero']['name'] = $this->request->data['Caso']['name'];
-		    		$this->request->data['Tercero']['apellidos'] = $this->request->data['Caso']['apellidos'];
-		    		$this->request->data['Tercero']['dirterce'] = $this->request->data['Caso']['dirterce'];
-		    		$this->request->data['Tercero']['email1'] = $this->request->data['Caso']['email1'];
-		    		$this->request->data['Tercero']['tel1'] = $this->request->data['Caso']['tel1'];
+		    		$this->request->data['Tercero']['id'] = $this->request->data['citerce'];
+		    		$this->request->data['Tercero']['name'] = $this->request->data['name'];
+		    		$this->request->data['Tercero']['apellidos'] = $this->request->data['apellidos'];
+		    		$this->request->data['Tercero']['dirterce'] = $this->request->data['dirterce'];
+		    		$this->request->data['Tercero']['email1'] = $this->request->data['email1'];
+		    		$this->request->data['Tercero']['tel1'] = $this->request->data['tel1'];
 		    		$this->request->data['Tercero']['ciudad'] = $this->request->data['ciudad'];
-		    		if(!$this->Tercero->save($this->request->data) && $this->User->save($this->request->data)){
+		    		if($this->Tercero->save($this->request->data) && $this->User->save($this->request->data)){
+
+		    		}else{
 						$this->Session->setFlash(__('Error al enviar los datos.'), 'default', array('class' => 'alert alert-danger alert-dismissible'));
 		    		}
 	    		}
@@ -75,13 +78,14 @@
 	    		$this->request->data['Caso']['estado'] = '1';
 	    		$this->request->data['Caso']['fhrecibo'] = date('Y-m-d');
 	    		$this->request->data['Caso']['finalizado'] = '0';
+	    		$this->request->data['Caso']['citerce'] = $this->request->data['citerce'];
 	    		foreach($Ramdon_tecni AS $tecni){
 					$this->request->data['Caso']['ctecni'] = $tecni['Tecnico']['id'];
 					$this->request->data['Casos_deta']['ctecni'] = $tecni['Tecnico']['id'];
 				}
 	    		$this->request->data['Casos_deta']['idcaso'] = $idcaso;
 	    		$this->request->data['Casos_deta']['itcaso'] = '1';
-	    		$this->request->data['Casos_deta']['detalle'] = 'Creacion del Ticket para el Ususario '.$this->request->data['Caso']['citerce'];
+	    		$this->request->data['Casos_deta']['detalle'] = 'Creacion del Ticket para el Ususario '.$this->request->data['citerce'];
 	    		$this->request->data['Casos_deta']['fhdeta'] = date('Y-m-d');
 	    		$this->request->data['Casos_deta']['users_id'] = AuthComponent::user('id');
 	    		if($this->Caso->save($this->request->data) && $this->Casos_deta->save($this->request->data)){

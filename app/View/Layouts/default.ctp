@@ -6,25 +6,9 @@
 		<?= $this->Html->css('template/plugins/bootstrap/bootstrap') ?>
 		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-		<?= $this->Html->css('template/plugins/fancybox/jquery.fancybox') ?>
-		<?= $this->Html->css('template/plugins/fullcalendar/fullcalendar') ?>
-		<?= $this->Html->css('template/plugins/xcharts/xcharts.min') ?>
-		<?= $this->Html->css('template/plugins/select2/select2') ?>
-		<?= $this->Html->css('template/plugins/justified-gallery/justifiedGallery') ?>
-		<?= $this->Html->css('template/style_v1') ?>
-		<?= $this->Html->css('sty') ?>
-		<?= $this->Html->css('message') ?>
-		<?= $this->Html->css('toastr') ?>
+		<?= $this->Html->css(array('template/style_v1', 'sty', 'message', 'toastr', 'jquery-ui.min')) ?>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<?= $this->Html->script("template/plugins/jquery/jquery.min") ?>
-		<?= $this->Html->script("template/plugins/jquery-ui/jquery-ui.min") ?>
-		<?= $this->Html->script("template/plugins/bootstrap/bootstrap.min") ?>
-		<?= $this->Html->script("template/plugins/justified-gallery/jquery.justifiedGallery.min") ?>
-		<?= $this->Html->script("template/plugins/tinymce/tinymce.min") ?>
-		<?= $this->Html->script("template/plugins/tinymce/jquery.tinymce.min") ?>
-		<?= $this->Html->script("template/devoops") ?>
-		<?= $this->Html->script("toastr") ?>
-		<?= $this->Html->script("jquery.leanModal.min") ?>
+		<?= $this->Html->script(array("template/plugins/jquery/jquery.min", 'template/plugins/bootstrap/bootstrap.min', 'template/plugins/tinymce/tinymce.min', 'template/plugins/tinymce/jquery.tinymce.min', 'template/devoops', 'toastr', 'jquery-ui.min', 'search')) ?>
 		<title>Bienvenido :: <?= $pageTitle ?></title>
 	</head>
 	<body>

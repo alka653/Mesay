@@ -11,29 +11,11 @@
 					$disabled = "disabled";
 			?>
 			<h4 class="text-center">Información del Usuario</h4>
-				<div class="form-group">
-					<div class="col-xs-12 col-sm-12 col-md-6">
-						<?= $this->Form->input('citerce', array('maxlength' => '15', 'required' => 'required', 'class' => 'form-control','placeholder' => 'Digite un Usuario', 'label' => 'Usuario', 'onkeyup' => 'BrowseUser()', array('class' => 'col-sm-2 control-label'))) ?>
-						<div id="user_name"></div>
-					</div>
-					<?= $this->Form->input('name', array('maxlength' => '30', 'required' => 'required', 'class' => 'form-control','placeholder' => 'Digite el nombre del usuario', 'label' => 'Nombre del Usuario', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-6'))) ?>
-				</div>
-				<div class="form-group">
-					<?= $this->Form->input('apellidos', array('maxlength' => '30', 'required' => 'required', 'class' => 'form-control','placeholder' => 'Digite el apellido del usuario', 'label' => 'Apellido del Usuario', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-6'))) ?>
-					<?= $this->Form->input('dirterce', array('maxlength' => '20', 'required' => 'required', 'class' => 'form-control','placeholder' => 'Digite la direccion del usuario', 'label' => 'Direccion del Usuario', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-6'))) ?>
-				</div>
-				<div class="form-group">
-					<?= $this->Form->input('email1', array('type' => 'email', 'maxlength' => '40', 'required' => 'required', 'class' => 'form-control','placeholder' => 'Digite el Correo Electronico del usuario', 'label' => 'Correo Electronico del Usuario', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-6'))) ?>
-					<?= $this->Form->input('tel1', array('maxlength' => '10', 'required' => 'required', 'class' => 'form-control','placeholder' => 'Digite el Numero Telefonico del usuario', 'label' => 'Numero Telefonico del Usuario', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-6'))) ?>
-				</div>
-				<div class="form-group">
-					<?= $this->Form->input('depar', array('required' => 'required', 'class' => 'form-control', 'required' => 'required', 'label' => 'Departamento', 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-6'), array('class' => 'col-sm-2 control-label'), 'type' => 'select', 'options' => $depar, 'empty' => 'Selecciona un Departamento')) ?>
-					<div class="col-xs-12 col-sm-12 col-md-6">
-						<div id="ciudad">
-							<?= $this->Form->input('ciudad', array('class' => 'form-control xs-10', 'required' => 'required',  'label' => 'Ciudad (*)', array('for' => 'ciudad'), 'type' => 'select', 'empty' => 'Selecciona una Ciudad')) ?>
-						</div>
-					</div>
-				</div>
+			<div class="text-center">
+            	<?= $this->Html->link("Usuario Existente", array('controller' => 'Users', 'action' => "FindUser"), array("class" => "btn btn-primary user-exists", "escape" => false)) ?>
+            	<?= $this->Html->link("Usuario Nuevo", array('controller' => 'Users', 'action' => "NewUser"), array("class" => "btn btn-primary user-exists", "escape" => false)) ?>
+			</div>
+			<div id="user-find"></div>
 			<?php
 				}else{
 					$disabled = false;
@@ -57,15 +39,14 @@
 	$(document).ready(function(){
 		TinyMCEStart('#CasoDetalle', null);
 	});
+	$(".user-exists").click(function(event){
+        event.preventDefault();
+        var target = $(this).attr("href");
+        $('#user-find').load(target);
+    });
 	$("#CasoTel1").keypress(function(e){
 		if(e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)){
 	       	return false;
 		}
-	});
-	function BrowseUser(){
-  		$('#user_name').load('<?= Router::url(array("controller" => "Users", "action" => "confirm"), true) ?>'+'/'+$('#CasoCiterce').val());
-	}
-	$('#CasoDepar').change(function(){
-		$('#ciudad').load('<?= Router::url(array("controller" => "Ciudades", "action" => "getByCiudad"), true) ?>'+'/'+$(this).val());
 	});
 </script>

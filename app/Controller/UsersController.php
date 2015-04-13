@@ -11,7 +11,7 @@
 		);
 	    public function beforeFilter(){
 	        parent::beforeFilter();
-	        $this->Auth->allow('login', 'register', 'confirm'); 
+	        $this->Auth->allow('login', 'register', 'confirm', 'GeneratePassword', 'email'); 
 	    }
 	    public function welcome(){
 			$this->set('pageTitle','Bienvenido');
@@ -33,6 +33,16 @@
 		    	$this->set('button', 'false');
 		    	$this->set('message', '');
 		    }
+	    }
+	    public function FindUser(){
+	    	$this->layout = null;
+	    	$this->autoRender = true;
+	    }
+	    public function NewUser(){
+	    	$this->loadModel('Departamento');
+	    	$this->set('depar', $this->Departamento->find('list', array('fields' => array('id', 'depar'), 'order' => array('depar ASC'))));
+	    	$this->layout = null;
+	    	$this->autoRender = true;
 	    }
 	    public function email($email = null){
 	    	$this->layout = null;
