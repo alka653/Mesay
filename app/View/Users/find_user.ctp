@@ -3,8 +3,8 @@
 </div>
 <div id="results">
 	<div class="form-group">
-		<?= $this->Form->input('Tercero.citerce', array('class' => 'form-control', 'disabled' => 'disabled', 'label' => 'Código del Tercero', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-xs-12 col-sm-6 col-md-6 text-center'))) ?>
-		<?= $this->Form->input('Tercero.name', array('class' => 'form-control', 'disabled' => 'disabled', 'label' => 'Nombre del Tercero', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-xs-12 col-sm-6 col-md-6 text-center'))) ?>
+		<?= $this->Form->input('User.cod', array('readonly' => 'readonly', 'class' => 'form-control', 'label' => 'Usuario del Cliente', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-xs-12 col-sm-6 col-md-6 text-center'))) ?>
+		<?= $this->Form->input('name', array('class' => 'form-control', 'readonly' => 'readonly', 'label' => 'Nombre del Cliente', array('class' => 'col-sm-2 control-label'), 'div' => array('class' => 'col-xs-12 col-sm-6 col-md-6 text-center'))) ?>
 	</div>
 </div>
 <script type="text/javascript">
@@ -34,9 +34,10 @@
 			});
 		},
 		select: function(ul, ui){
-			$('#TerceroCiterce').val(ui.item.citerce);
-			$('#TerceroName').val(ui.item.name+' '+ui.item.apellidos);
+			$('#UserCod').val(ui.item.citerce);
+			$('#name').val(ui.item.name+' '+ui.item.apellidos);
 			$('#results').show();
+			$('.button').attr('disabled', false);
 		}
 	}).data("ui-autocomplete")._renderItem = function(ul, item){
 		return $("<li></li>").data("item.autocomplete", item).append('<a href="google.com" id="'+item.citerce+'">'+item.name+' '+item.apellidos+'</a>').appendTo(ul)

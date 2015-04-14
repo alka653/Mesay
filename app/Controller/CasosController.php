@@ -55,28 +55,34 @@
 	    		$this->Casos_deta->create();
 	    		if(AuthComponent::user('role') == 3){
 	    			$this->request->data['Caso']['citerce'] = AuthComponent::user('username');
+	    			$this->request->data['citerce'] = AuthComponent::user('username');
 	    		}else{
-	    			$this->User->create();
-	    			$this->Tercero->create();
-	    			$this->request->data['User']['username'] = $this->request->data['citerce'];
-		    		$this->request->data['User']['name'] = $this->request->data['name'];
-		    		$this->request->data['User']['password'] = $password;
-		    		$this->request->data['Tercero']['id'] = $this->request->data['citerce'];
-		    		$this->request->data['Tercero']['name'] = $this->request->data['name'];
-		    		$this->request->data['Tercero']['apellidos'] = $this->request->data['apellidos'];
-		    		$this->request->data['Tercero']['dirterce'] = $this->request->data['dirterce'];
-		    		$this->request->data['Tercero']['email1'] = $this->request->data['email1'];
-		    		$this->request->data['Tercero']['tel1'] = $this->request->data['tel1'];
-		    		$this->request->data['Tercero']['ciudad'] = $this->request->data['ciudad'];
-		    		if($this->Tercero->save($this->request->data) && $this->User->save($this->request->data)){
+	    			if(!$this->request->data['User']['cod']){
+		    			$this->User->create();
+		    			$this->Tercero->create();
+		    			$this->request->data['User']['username'] = $this->request->data['citerce'];
+			    		$this->request->data['User']['name'] = $this->request->data['name'];
+			    		$this->request->data['User']['password'] = $password;
+			    		$this->request->data['Tercero']['id'] = $this->request->data['citerce'];
+			    		$this->request->data['Tercero']['name'] = $this->request->data['name'];
+			    		$this->request->data['Tercero']['apellidos'] = $this->request->data['apellidos'];
+			    		$this->request->data['Tercero']['dirterce'] = $this->request->data['dirterce'];
+			    		$this->request->data['Tercero']['email1'] = $this->request->data['email1'];
+			    		$this->request->data['Tercero']['tel1'] = $this->request->data['tel1'];
+			    		$this->request->data['Tercero']['ciudad'] = $this->request->data['ciudad'];
+			    		if($this->Tercero->save($this->request->data) && $this->User->save($this->request->data)){
 
-		    		}else{
-						$this->Session->setFlash(__('Error al enviar los datos.'), 'default', array('class' => 'alert alert-danger alert-dismissible'));
-		    		}
+			    		}else{
+							$this->Session->setFlash(__('Error al enviar los datos.'), 'default', array('class' => 'alert alert-danger alert-dismissible'));
+			    		}
+			    	}else{
+			    		$this->request->data['Caso']['citerce'] = $this->request->data['User']['cod'];
+			    		$this->request->data['citerce'] = $this->request->data['User']['cod'];
+			    	}
 	    		}
 	    		$this->request->data['Caso']['idcaso'] = $idcaso;
 	    		$this->request->data['Caso']['estado'] = '1';
-	    		$this->request->data['Caso']['fhrecibo'] = date('Y-m-d');
+	    		$this->request->data['Caso']['fhrecibo'] = $this->request->data['Caso']['time'];
 	    		$this->request->data['Caso']['finalizado'] = '0';
 	    		$this->request->data['Caso']['citerce'] = $this->request->data['citerce'];
 	    		foreach($Ramdon_tecni AS $tecni){
@@ -86,7 +92,7 @@
 	    		$this->request->data['Casos_deta']['idcaso'] = $idcaso;
 	    		$this->request->data['Casos_deta']['itcaso'] = '1';
 	    		$this->request->data['Casos_deta']['detalle'] = 'Creacion del Ticket para el Ususario '.$this->request->data['citerce'];
-	    		$this->request->data['Casos_deta']['fhdeta'] = date('Y-m-d');
+	    		$this->request->data['Casos_deta']['fhdeta'] = $this->request->data['Caso']['time'];
 	    		$this->request->data['Casos_deta']['users_id'] = AuthComponent::user('id');
 	    		if($this->Caso->save($this->request->data) && $this->Casos_deta->save($this->request->data)){
 					$this->Session->setFlash(__('Exito al enviar los datos, ya estamos trabajando en el Caso. Ten presente el número del caso <strong>'.$idcaso."</strong>"), 'default', array('class' => 'alert success-alert'));
