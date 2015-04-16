@@ -134,24 +134,10 @@
 	    	$this->set('users', $this->paginate());
 	    }
 	    public function add(){
-	    	$roles = $this->User->Role->find('list', array('fields' => array('id', 'name_role')));
+	    	//$roles = $this->User->Role->find('list', array('fields' => array('id', 'name_role')));
 	    	$this->set('pageTitle','Lista de Usuarios');
 	    	$this->set(compact('roles'));
-	    	if($this->request->isAjax()){
-
-	    	}
-	    }/*
-	    public function edit($id = null){
-	    	if($this->request->isAjax()){
-	    		$this->layout = null;
-	    		$this->autoRender = true;
-	    		$this->set('user', $this->User->findById($id));
-	    		$roles = $this->User->Role->find('list', array('fields' => array('id', 'name_role')));
-				$this->set(compact('roles'));
-	    	}else{
-	    		$this->redirect(array('action' => 'welcome'));
-	    	}
-	    }*/
+	    }
 	    public function status($id = null){
 			$this->layout = null;
 	    	$this->autoRender = true;

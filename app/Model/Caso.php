@@ -10,9 +10,17 @@
 	    		'className' => 'Level',
 	    		'foreignKey' => 'nivel',
 	    	),
+	    	'Tercero' => array(
+	    		'className' => 'Tercero',
+	    		'foreignKey' => 'citerce',
+	    	),
 	    	'State' => array(
 	    		'className' => 'State',
 	    		'foreignKey' => 'estado',
+	    	),
+	    	'Ticaso' => array(
+	    		'className' => 'Ticaso',
+	    		'foreignKey' => 'cticaso',
 	    	),
 	    ); 
 	}

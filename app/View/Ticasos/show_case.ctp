@@ -9,7 +9,7 @@
 					<?= $this->Form->input('id', array('class' => 'form-control', array('class' => 'control-label'), 'div' => array('class' => 'col-xs-12'))) ?>
 				</div>
 				<div class="form-group col-xs-12 col-sm-12 col-md-6">
-					<?= $this->Form->input('nticaso', array('maxlength' => '20', 'required' => 'required', 'class' => 'form-control', 'placeholder' => 'Escriba El Tipo de Caso', 'label' => 'Tipo de Caso', array('class' => 'control-label'), 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-11'))) ?>
+					<?= $this->Form->input('nticaso', array('maxlength' => '40', 'required' => 'required', 'class' => 'form-control', 'placeholder' => 'Escriba El Tipo de Caso', 'label' => 'Tipo de Caso', array('class' => 'control-label'), 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-11'))) ?>
 				</div>
 				<div class="form-group col-xs-12 col-sm-12 col-md-6">
 					<?= $this->Form->input('prefijo', array('maxlength' => '3', 'required' => 'required', 'class' => 'form-control', 'placeholder' => 'Prefijo del Tipo de Caso', 'label' => 'Prefijo', array('class' => 'control-label'), 'div' => array('class' => 'col-xs-12 col-sm-12 col-md-11'))) ?>

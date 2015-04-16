@@ -6,12 +6,14 @@
 <div class="row-fluid">
     <div class="col-md-12" id="dashboard_tabs">
         <div id="dashboard-overview" class="row">
+        	<?= $this->Session->flash(); ?>
 			<div id="Content-casos">
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
 							<th><?= $this->Paginator->sort('Ticket') ?></th>
 							<th><?= $this->Paginator->sort('Titulo') ?></th>
+							<th><?= $this->Paginator->sort('Tipo de Caso') ?></th>
 							<th><?= $this->Paginator->sort('Fecha') ?></th>
 							<th><?= $this->Paginator->sort('Nivel') ?></th>
 							<th><?= $this->Paginator->sort('Estado') ?></th>
@@ -41,8 +43,19 @@
 								}
 						?>
 						<tr>
-							<td><?= $this->Html->link($caso['Caso']['idcaso'], array('controller' => 'casos', 'action' => 'ShowTicket', 'id' => $caso['Caso']['idcaso'])) ?></td>
+							<td>
+								<?php
+									if($caso['Caso']['estado'] == 2){
+										echo $caso['Caso']['idcaso'];
+									}else{
+								?>
+								<?= $this->Html->link($caso['Caso']['idcaso'], array('controller' => 'casos', 'action' => 'ShowTicket', 'id' => $caso['Caso']['idcaso'])) ?>
+								<?php
+									}
+								?>
+							</td>
 							<td><?= $caso['Caso']['titulo'] ?></td>
+							<td><?= $caso['Ticaso']['nticaso'] ?></td>
 							<td><?= $caso['Caso']['fhrecibo'] ?></td>
 							<td><span class="label <?= $span ?>"><?= $caso['Level']['name_level'] ?></span></td>
 							<td><span class="label <?= $span2 ?>"><?= $caso['State']['name_state'] ?></span></td>

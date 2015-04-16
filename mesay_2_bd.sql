@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-04-2015 a las 05:51:14
+-- Tiempo de generación: 16-04-2015 a las 04:34:58
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `casos` (
   `detalle` varchar(3000) DEFAULT NULL,
   `nivel` int(1) NOT NULL,
   `estado` char(1) DEFAULT NULL,
-  `fhrecibo` date DEFAULT NULL,
+  `fhrecibo` datetime DEFAULT NULL,
   `finalizado` char(1) DEFAULT NULL,
   `citerce` varchar(15) DEFAULT NULL,
   `cticaso` int(11) DEFAULT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `casos` (
 --
 
 INSERT INTO `casos` (`idcaso`, `titulo`, `detalle`, `nivel`, `estado`, `fhrecibo`, `finalizado`, `citerce`, `cticaso`, `ctecni`) VALUES
-('TCK1504001', 'DaÃ±o en el Infa++', '<p>kjsdd,ncklsdf sdjkfbsd fdsjfkd</p>\r\n<p>dsfg</p>\r\n<p>fdg</p>', 1, '1', '2015-04-11', '0', 'alka653', 1, 'tecni_adriann');
+('TCK1504001', 'DaÃ±o en el infa++', '<p>Hay da&ntilde;o en el infa++</p>', 3, '1', '2015-04-15 04:40:36', '1', 'paco123', 1, 'tecni_vivas');
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `casos_detas` (
 --
 
 INSERT INTO `casos_detas` (`idcaso`, `itcaso`, `detalle`, `fhdeta`, `users_id`, `ctecni`) VALUES
-('TCK1504001', 1, 'Creacion del Ticket para el Ususario alka653', '2015-04-11', 45, 'tecni_adriann');
+('TCK1504001', 1, 'Creacion del Ticket para el Ususario paco123', '2015-04-15', 1, 'tecni_vivas');
 
 -- --------------------------------------------------------
 
@@ -78,15 +78,213 @@ CREATE TABLE IF NOT EXISTS `ciudades` (
 `id` int(11) NOT NULL,
   `name` varchar(40) DEFAULT NULL,
   `cdepar` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ciudades`
 --
 
 INSERT INTO `ciudades` (`id`, `name`, `cdepar`) VALUES
-(1, 'Girardot', 1),
-(2, 'Agua de Dios', 1);
+(2, 'Tocaima', 1),
+(3, 'Girardot', 1),
+(4, 'El Encanto', 3),
+(5, 'La chorrera', 3),
+(6, 'La Pedrera', 3),
+(7, 'La Victoria', 3),
+(8, 'Leticia', 3),
+(9, 'MiritÃ­-ParanÃ¡', 3),
+(10, 'Puerto AlegrÃ­a', 3),
+(11, 'Puerto Arica', 3),
+(12, 'Puerto NariÃ±o', 3),
+(13, 'Puerto Santander', 3),
+(14, 'TarapacÃ¡', 3),
+(15, 'CÃ¡ceres', 4),
+(16, 'Caucasia', 4),
+(17, 'El Bagre', 4),
+(18, 'NechÃ­', 4),
+(19, 'ItagÃ¼Ã­', 4),
+(20, 'La Estrella', 4),
+(21, 'MedellÃ­n', 4),
+(22, 'Sabaneta', 4),
+(23, 'Arauca', 5),
+(24, 'Arauquita', 5),
+(25, 'Cravo Norte', 5),
+(26, 'Fortul', 5),
+(27, 'Puerto RondÃ³n', 5),
+(28, 'Saravena', 5),
+(29, 'Tame', 5),
+(30, 'Barranquilla', 6),
+(31, 'Baranoa', 6),
+(32, 'Campo de la Cruz', 6),
+(33, 'Candelaria', 6),
+(34, 'Galapa', 6),
+(35, 'Juan de Acosta', 6),
+(36, 'Luruaco', 6),
+(42, 'Malambo', 6),
+(43, 'ManatÃ­', 6),
+(44, 'Palmar de Varela', 6),
+(45, 'PiojÃ³', 6),
+(46, 'Polonuevo', 6),
+(47, 'Ponedera', 6),
+(48, 'Puerto Colombia', 6),
+(49, 'RepelÃ³n', 6),
+(50, 'Sabanagrande', 6),
+(51, 'Sabanalarga', 6),
+(52, 'Santa LucÃ­a', 6),
+(53, 'Santo TomÃ¡s', 6),
+(54, 'Soledad', 6),
+(55, 'SuÃ¡n', 6),
+(56, 'TubarÃ¡', 6),
+(57, 'UsiacurÃ­', 6),
+(58, 'AchÃ­', 7),
+(59, 'Altos del Rosario', 7),
+(60, 'Arenal', 7),
+(61, 'Arjona', 7),
+(62, 'Arroyohondo', 7),
+(63, 'Barranco de Loba', 7),
+(64, 'Brazuelo de Papayal', 7),
+(65, 'Calamar', 7),
+(66, 'Cantagallo', 7),
+(67, 'El Carmen de BolÃ­var', 7),
+(68, 'Cartagena de Indias', 7),
+(69, 'Cicuco', 7),
+(70, 'Clemencia', 7),
+(71, 'CÃ³rdoba', 7),
+(72, 'El Guamo', 7),
+(73, 'El PeÃ±Ã³n', 7),
+(74, 'Hatillo de Loba', 7),
+(75, 'MaganguÃ©', 7),
+(76, 'Margarita', 7),
+(77, 'MarÃ­a La Baja', 7),
+(78, 'Montecristo', 7),
+(79, 'Morales', 7),
+(80, 'NorosÃ­', 7),
+(81, 'Pinillos', 7),
+(82, 'Regidor', 7),
+(83, 'RÃ­o Viejo', 7),
+(84, 'San CristÃ³bal', 7),
+(85, 'San Estanislao', 7),
+(86, 'San Fernando', 7),
+(87, 'San Jacinto', 7),
+(88, 'San Jacinto del Cauca', 7),
+(89, 'San Juan Nepomuceo', 7),
+(90, 'San MartÃ­n de Loba', 7),
+(91, 'San Pablo', 7),
+(92, 'Santa Catalina', 7),
+(93, 'Santa Cruz de Mompox', 7),
+(94, 'Santa Rosa', 7),
+(95, 'Santa Rosa del Sur', 7),
+(96, 'SimitÃ­', 7),
+(97, 'Soplaviento', 7),
+(98, 'Talaigua Nuevo', 7),
+(99, 'Tiquisio', 7),
+(100, 'Turbaco', 7),
+(101, 'TurbanÃ¡', 7),
+(102, 'Villanueva', 7),
+(103, 'Zambrano', 7),
+(104, 'CÃ³mbita', 8),
+(105, 'Cucaita', 8),
+(106, 'ChivatÃ¡', 8),
+(107, 'ChÃ­quiza', 8),
+(108, 'Motavita', 8),
+(109, 'OicatÃ¡', 8),
+(110, 'SamacÃ¡', 8),
+(111, 'Siachoque', 8),
+(112, 'Sora', 8),
+(113, 'SoracÃ¡', 8),
+(114, 'SotaquirÃ¡', 8),
+(115, 'Toca', 8),
+(116, 'Tunja', 8),
+(117, 'Tuta', 8),
+(118, 'Ventaquemada', 8),
+(119, 'Chiscas', 8),
+(120, 'MonguÃ­', 8),
+(121, 'Nobsa', 8),
+(122, 'Pesca', 8),
+(123, 'Sogamoso', 8),
+(124, 'Tibasosa', 8),
+(125, 'TÃ³paga', 8),
+(126, 'Tota', 8),
+(127, 'BelÃ©n', 8),
+(128, 'BusbanzÃ¡', 8),
+(129, 'Cerinza', 8),
+(130, 'Corrales', 8),
+(131, 'Duitama', 8),
+(132, 'Floresta', 8),
+(133, 'Paipa', 8),
+(134, 'Santa Rosa de Viterbo', 8),
+(135, 'TutazÃ¡', 8),
+(136, 'BetÃ©itiva', 8),
+(137, 'Chita', 8),
+(138, 'JericÃ³', 8),
+(139, 'Paz de RÃ­o', 8),
+(140, 'SocotÃ¡', 8),
+(141, 'Socha', 8),
+(142, 'Tasco', 8),
+(143, 'CubarÃ¡', 8),
+(144, 'Puerto BoyacÃ¡', 8),
+(145, 'SamanÃ¡', 9),
+(146, 'Victoria', 9),
+(147, 'Norcasia', 9),
+(148, 'La Dorada', 9),
+(149, 'Marquetalia', 9),
+(150, 'Manzanares', 9),
+(151, 'Pensilvania', 9),
+(152, 'Marulanda', 9),
+(153, 'Aguadas', 9),
+(154, 'PÃ¡cora', 9),
+(155, 'Salamina', 9),
+(156, 'Aranzazu', 9),
+(157, 'Riosucio', 9),
+(158, 'SupÃ­a', 9),
+(159, 'La Merced', 9),
+(160, 'Marmato', 9),
+(161, 'Filadelfia', 9),
+(162, 'Manizales', 9),
+(163, 'Neira', 9),
+(164, 'VillamarÃ­a', 9),
+(165, 'ChinchinÃ¡', 9),
+(166, 'Palestina', 9),
+(167, 'Viterbo', 9),
+(168, 'BelalcÃ¡zar', 9),
+(169, 'San JosÃ©', 9),
+(170, 'Risaralda', 9),
+(171, 'Anserma', 9),
+(172, 'Albania', 10),
+(173, 'BelÃ©n de los Andaquies', 10),
+(174, 'Cartagena del ChairÃ¡', 10),
+(175, 'Curillo', 10),
+(176, 'El Doncello', 10),
+(177, 'El Paujil', 10),
+(178, 'Florencia', 10),
+(179, 'La MontaÃ±ita', 10),
+(180, 'Morelia', 10),
+(181, 'Puerto MilÃ¡n', 10),
+(182, 'Puerto Rico', 10),
+(183, 'San JosÃ© del Fragua', 10),
+(184, 'San Vicente del CaguÃ¡n', 10),
+(185, 'Solano', 10),
+(186, 'Solita', 10),
+(187, 'ValparaÃ­so', 10),
+(188, 'Aguazul', 11),
+(189, 'ChÃ¡meza', 11),
+(190, 'Hato Corozal', 11),
+(191, 'La Salina', 11),
+(192, 'ManÃ­', 11),
+(193, 'Monterrey', 11),
+(194, 'NunchÃ­a', 11),
+(195, 'OrocuÃ©', 11),
+(196, 'Paz de Ariporo', 11),
+(197, 'Pore', 11),
+(198, 'Recetor', 11),
+(199, 'Sabanalarga', 11),
+(200, 'SÃ¡maca', 11),
+(201, 'San Luis de Palenque', 11),
+(202, 'TÃ¡mara', 11),
+(203, 'Tauramena', 11),
+(204, 'Trinidad', 11),
+(205, 'Villanueva', 11),
+(206, 'Yopal', 11);
 
 -- --------------------------------------------------------
 
@@ -97,7 +295,7 @@ INSERT INTO `ciudades` (`id`, `name`, `cdepar`) VALUES
 CREATE TABLE IF NOT EXISTS `departamentos` (
 `id` int(11) NOT NULL,
   `depar` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `departamentos`
@@ -105,7 +303,37 @@ CREATE TABLE IF NOT EXISTS `departamentos` (
 
 INSERT INTO `departamentos` (`id`, `depar`) VALUES
 (1, 'Cundinamarca'),
-(2, 'Tolima');
+(3, 'Amazonas'),
+(4, 'Antioquia'),
+(5, 'Arauca'),
+(6, 'AtlÃ¡ntico'),
+(7, 'BolÃ­var'),
+(8, 'BoyacÃ¡'),
+(9, 'Caldas'),
+(10, 'CaquetÃ¡'),
+(11, 'Casanare'),
+(12, 'Cauca'),
+(13, 'Cesar'),
+(15, 'ChocÃ³'),
+(16, 'CÃ³rdoba'),
+(17, 'GuainÃ­a'),
+(18, 'Guaviare'),
+(19, 'Huila'),
+(20, 'La Guajira'),
+(21, 'Magdalena'),
+(22, 'Meta'),
+(23, 'NariÃ±o'),
+(25, 'Norte de Santander'),
+(26, 'Putumayo'),
+(28, 'QuindÃ­o'),
+(29, 'Risaralda'),
+(30, 'San AndrÃ©s y Providencia'),
+(31, 'Santander'),
+(32, 'Sucre'),
+(33, 'Tolima'),
+(34, 'Valle del Cauca'),
+(35, 'VaupÃ©s'),
+(36, 'Vichada');
 
 -- --------------------------------------------------------
 
@@ -256,7 +484,10 @@ CREATE TABLE IF NOT EXISTS `terceros` (
 --
 
 INSERT INTO `terceros` (`id`, `name`, `apellidos`, `dirterce`, `ctaskype`, `email1`, `email2`, `email3`, `tel1`, `tel2`, `tel3`, `ciudad`) VALUES
-('alka653', 'Adriann', 'Sanchez', 'Mz B Casa # 34', 'alka653', 'adriann.sanchez1@gmail.com', '', '', '3118491381', '', '', 2);
+('paco123', 'paco', 'sanchez', 'Av Siempre Viva 123', '', 'pepe@gmail.com', '', 'alka65@hotmail.com', '1234567890', '', '', 2),
+('pepe123', 'pepe', 'pepe', 'Av Siempre Viva No', '', 'alka65@hotmail.es', '', '', '3118491381', '', '', 3),
+('perro123', 'paco andres sanchez', 'pepe', 'Av Siempre Viva No', '', 'alka65@hotmail.arg', '', '', '3118491381', '', '', 3),
+('pescado123', 'pecesito', 'pez', 'Av Siempre Viva No', '', 'alka65@hotmail.ar', '', '', '3118491381', '', '', 3);
 
 -- --------------------------------------------------------
 
@@ -266,17 +497,17 @@ INSERT INTO `terceros` (`id`, `name`, `apellidos`, `dirterce`, `ctaskype`, `emai
 
 CREATE TABLE IF NOT EXISTS `ticasos` (
 `id` int(11) NOT NULL,
-  `nticaso` varchar(20) DEFAULT NULL,
-  `tiempo` timestamp NULL DEFAULT NULL,
+  `nticaso` varchar(40) DEFAULT NULL,
   `prefijo` varchar(3) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ticasos`
 --
 
-INSERT INTO `ticasos` (`id`, `nticaso`, `tiempo`, `prefijo`) VALUES
-(1, 'DaÃ±o de Software', '2015-03-23 08:03:07', 'DS');
+INSERT INTO `ticasos` (`id`, `nticaso`, `prefijo`) VALUES
+(1, 'DaÃ±o de Software', 'DS'),
+(2, 'Mantenimiento de Equipo', 'MTT');
 
 -- --------------------------------------------------------
 
@@ -292,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role` int(11) DEFAULT '3',
   `created` datetime DEFAULT NULL,
   `status` int(11) DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `users`
@@ -300,11 +531,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `name`, `password`, `role`, `created`, `status`) VALUES
 (1, 'admon', 'Adriann Sanchez', '0c43cf393cd1b460bdbb5cffd6865757c041a93e', 1, NULL, 1),
-(45, 'alka653', 'Adriann', '0c43cf393cd1b460bdbb5cffd6865757c041a93e', 3, '2015-04-09 04:24:44', 1),
-(46, 'tecni_adriann', 'Adriann', '0c43cf393cd1b460bdbb5cffd6865757c041a93e', 2, '2015-04-11 03:40:01', 1),
-(47, 'tecni_vivas', 'Ã‘aÃ±ez', 'd4f4672399d5a37013dde446f50a19e0f15ff9e7', 2, '2015-04-11 03:40:44', 1),
-(48, 'marck123', 'Marcus', 'bff2679794d845ddb46efaff3885bd5fdd740325', 2, '2015-04-11 04:20:41', 1),
-(49, 'paco123', 'Paco', 'f11f858b688bc626a2003f680af7404463b319ea', 2, '2015-04-11 04:21:02', 1);
+(51, 'paco123', 'paco', '8432243e2a8f748a369737e8692284e9be90e849', 3, '2015-04-12 22:53:04', 1),
+(52, 'pepe123', 'pepe', 'd8af3021eba231d36265249bc7af6054ea88cc51', 3, '2015-04-14 05:38:05', 1),
+(53, 'pescado123', 'pecesito', '4688e693647aa110defe3805ec07c0508d4ed728', 3, '2015-04-14 05:58:53', 1),
+(54, 'perro123', 'paco andres sanchez', '32e0e15af656b6a3321996ae6733268178bb4a69', 3, '2015-04-14 06:05:01', 1);
 
 --
 -- Índices para tablas volcadas
@@ -396,12 +626,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `ciudades`
 --
 ALTER TABLE `ciudades`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=207;
 --
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT de la tabla `levels`
 --
@@ -421,12 +651,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT de la tabla `ticasos`
 --
 ALTER TABLE `ticasos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=55;
 --
 -- Restricciones para tablas volcadas
 --

@@ -14,18 +14,75 @@
 	        $this->Auth->allow(''); 
 	    }
 	    public function ShowTicket($id = null){
-
+	    	$caso = $this->Caso->find('first', array('conditions' => array('idcaso' => $id)));
+	    	if($caso['Caso']['nivel'] == 1){
+				$span = "label-danger";
+			}
+			if($caso['Caso']['nivel'] == 2){
+				$span = "label-warning";
+			}
+			if($caso['Caso']['nivel'] == 3){
+				$span = "label-info";
+			}
+			if($caso['Caso']['estado'] == 1){
+				$span2 = "label-success";
+			}
+			if($caso['Caso']['estado'] == 3){
+				$span2 = "label-default";
+			}
+	    	if($caso['Caso']['estado'] == 2){
+				$this->Session->setFlash(__('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>El caso <strong>'.$id.'</strong> se encuentra anulado'), 'default', array('class' => 'alert alert-danger alert-dismissible text-center', 'role' => 'alert'));
+				$this->redirect(array('action' => 'ViewTicket'));
+	    	}
+	    	$this->set(compact(array('id', 'caso', 'span', 'span2')));
+	    }
+	    public function FinalizarCaso($idcaso = null){
+	    	if($this->Caso->updateAll(array('estado' => '3', 'finalizado' => '1'), array('idcaso' => $idcaso))){
+	    		$msg = "Exito al Finalizar el Caso";
+	    		$type = "success";
+	    	}else{
+	    		$msg = "Error al Finalizar el Caso";
+	    		$type = "danger";
+	    	}
+			$this->Session->setFlash(__('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.$msg), 'default', array('class' => 'alert alert-'.$type.' alert-dismissible text-center', 'role' => 'alert'));
+			$this->redirect(array('action' => 'ViewTicket'));
+	    }
+	    public function AnularCaso($idcaso = null){
+	    	if($this->Caso->updateAll(array('estado' => '2'), array('idcaso' => $idcaso))){
+	    		$msg = "Exito al Anular el Caso";
+	    		$type = "success";
+	    	}else{
+	    		$msg = "Error al Anular el Caso";
+	    		$type = "danger";
+	    	}
+	    	$this->Session->setFlash(__('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.$msg), 'default', array('class' => 'alert alert-'.$type.' alert-dismissible text-center', 'role' => 'alert'));
+			$this->redirect(array('action' => 'ViewTicket'));
+	    }
+	    public function RemitCaso($id = null){
+	    	$this->layout = null;
+	    	$this->autoRender = true;
+	    	if($this->request->is('post')){
+	    		$this->viewPath = 'Response';
+	    		$this->view = 'response';
+	    		$ctecni = $this->request->data['Caso']['ctecni'];
+	    		if($this->Caso->updateAll(array('ctecni' => "'$ctecni'"), array('idcaso' => $id))) {
+		    		$msg = "Exito al Remitir el Caso";
+		    	}else{
+		    		$msg = "Error al Remitir el Caso";
+	    		}
+	    		$this->set(compact('msg'));
+	    	}
+	    	$caso = $this->Caso->find('first', array('conditions' => array('idcaso' => $id)));
+	    	$tecnicos = $this->Caso->Tecnico->find('list', array('fields' => array('id', 'ntecni'), 'conditions' => array('id !=' => $caso['Caso']['ctecni'])));
+	    	$this->set(compact('id', 'caso', 'tecnicos'));
 	    }
 	    public function CreateTicket(){
-	    	$this->loadModel('Ticaso');
-	    	$this->loadModel('Level');
-	    	$this->set('level', $this->Level->find('list', array('fields' => array('id', 'name_level'), 'order' => array('id ASC'))));
-	    	$this->set('cticaso', $this->Ticaso->find('list', array('fields' => array('id', 'nticaso'), 'order' => array('nticaso ASC'))));
+	    	$this->set('level', $this->Caso->Level->find('list', array('fields' => array('id', 'name_level'), 'order' => array('id ASC'))));
+	    	$this->set('cticaso', $this->Caso->Ticaso->find('list', array('fields' => array('id', 'nticaso'), 'order' => array('nticaso ASC'))));
 			$this->set('pageTitle','Crear Ticket');
 	    }
 	    public function NewTicket(){
 	    	$this->loadModel('Tecnico');
-	    	$this->loadModel('Caso');
 	    	$this->loadModel('Casos_deta');
 	    	$this->loadModel('User');
 	    	$this->loadModel('Tercero');
