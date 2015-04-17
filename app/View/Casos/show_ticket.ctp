@@ -31,19 +31,21 @@
 	        </tr>
 		</table> 
 		<?php
-			if(AuthComponent::user('role') != 3){
+			if(AuthComponent::user('role') != '3' && $caso['Caso']['estado'] != '3'){
 		?>
 		<div class="row text-left">
             <?= $this->Html->link("Remitir Caso", array('controller' => 'Casos', 'action' => "RemitCaso", $id), array("class" => "btn btn-primary modal-remitir")) ?>
-			<?= $this->Html->link("Anular Caso", array('controller' => 'Casos', 'action' => "AnularCaso", $caso['Caso']['idcaso']), array('class' => 'button btn btn-primary anular')) ?>
-			<?= $this->Html->link("Finalizar Caso", array('controller' => 'Casos', 'action' => "FinalizarCaso", $caso['Caso']['idcaso']), array('class' => 'button btn btn-primary finalizar')) ?>
+			<?= $this->Html->link("Anular Caso", array('controller' => 'Casos', 'action' => "AnularCaso", $caso['Caso']['id']), array('class' => 'button btn btn-primary anular')) ?>
+			<?= $this->Html->link("Finalizar Caso", array('controller' => 'Casos', 'action' => "FinalizarCaso", $caso['Caso']['id']), array('class' => 'button btn btn-primary finalizar')) ?>
 		</div>
 		<?php
 			}
 		?>
+		<div id="comments"></div>
 	</div>
 </div>
 <script type="text/javascript">
+	comments();
 	$(".modal-remitir").click(function(event){
         event.preventDefault();
         var target = $(this).attr("href");
@@ -51,4 +53,7 @@
             $('#modal-mesay').modal('show');
         });
     });
+	function comments(){
+        $('#comments').load('<?= Router::url(array("controller" => "CasosDetas", "action" => "ViewCommentsTicket", $id), true) ?>');
+    }
 </script>

@@ -46,10 +46,10 @@
 							<td>
 								<?php
 									if($caso['Caso']['estado'] == 2){
-										echo $caso['Caso']['idcaso'];
+										echo $caso['Caso']['id'];
 									}else{
 								?>
-								<?= $this->Html->link($caso['Caso']['idcaso'], array('controller' => 'casos', 'action' => 'ShowTicket', 'id' => $caso['Caso']['idcaso'])) ?>
+								<?= $this->Html->link($caso['Caso']['id'], array('controller' => 'casos', 'action' => 'ShowTicket', 'id' => $caso['Caso']['id'])) ?>
 								<?php
 									}
 								?>
